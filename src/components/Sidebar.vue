@@ -8,7 +8,7 @@ const emit = defineEmits(['navigate'])
 
 const navItems = [
   { id: 'dashboard', icon: '📊', label: '儀表板' },
-  { id: 'personnel', icon: '👥', label: '人事異動管理' },
+  { id: 'personnel', icon: '👥', label: '人事管理' },
   { id: 'payroll', icon: '💰', label: '薪資作業' },
   { id: 'reports', icon: '📋', label: '名冊與報表' },
   { id: 'settings', icon: '⚙️', label: '系統設定' },

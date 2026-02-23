@@ -7,8 +7,8 @@ const username = ref('admin')
 const password = ref('1234')
 
 function handleSubmit() {
-  if ((username.value === 'admin' || username.value === 'hr_lin') && password.value === '1234') {
-    emit('login', username.value)
+  if (username.value === 'admin' && password.value === '1234') {
+    emit('login')
   } else {
     emit('toast', '帳號或密碼錯誤')
   }
@@ -52,8 +52,7 @@ function handleSubmit() {
 
       <div class="mt-6 p-4 bg-amber-50 rounded-lg text-sm text-primary-400">
         <strong class="block mb-1">展示帳號</strong>
-        Admin：admin / 1234<br />
-        Maintainer：hr_lin / 1234
+        帳號：admin　密碼：1234
       </div>
 
       <p class="text-center mt-6 text-gray-400 text-sm">© 2025 T-ERP 人事薪資管理系統</p>

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import Login from './views/Login.vue'
 import Dashboard from './views/Dashboard.vue'
 import Personnel from './views/Personnel.vue'
@@ -12,15 +12,10 @@ import Toast from './components/Toast.vue'
 
 const isLoggedIn = ref(false)
 const currentPage = ref('dashboard')
-const currentRole = ref('admin')
 const toastMessage = ref('')
 const toastVisible = ref(false)
 
-const user = computed(() => {
-  return currentRole.value === 'admin'
-    ? { name: '王總經理', role: '系統管理員', avatar: '王' }
-    : { name: '林專員', role: '人事管理員', avatar: '林' }
-})
+const user = { name: '王總經理', role: '系統管理員', avatar: '王' }
 
 const pageTitles = {
   dashboard: '儀表板總覽',
@@ -30,9 +25,8 @@ const pageTitles = {
   settings: '系統設定'
 }
 
-function handleLogin(username) {
+function handleLogin() {
   isLoggedIn.value = true
-  currentRole.value = username === 'admin' ? 'admin' : 'maintainer'
   showToast('登入成功')
 }
 
@@ -70,14 +64,10 @@ function navigateTo(page) {
     />
 
     <main class="flex-1 ml-64">
-      <Topbar
-        :title="pageTitles[currentPage]"
-        :role="currentRole"
-        @switch-role="currentRole = $event"
-      />
+      <Topbar :title="pageTitles[currentPage]" />
 
       <div class="p-8">
-        <Dashboard v-if="currentPage === 'dashboard'" :role="currentRole" @navigate="navigateTo" @toast="showToast" />
+        <Dashboard v-if="currentPage === 'dashboard'" @navigate="navigateTo" @toast="showToast" />
         <Personnel v-if="currentPage === 'personnel'" @toast="showToast" />
         <Payroll v-if="currentPage === 'payroll'" @toast="showToast" />
         <Reports v-if="currentPage === 'reports'" @toast="showToast" />

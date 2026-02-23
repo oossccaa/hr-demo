@@ -6,16 +6,8 @@ const activeTab = ref('attendance')
 
 const attendanceRules = ref([
   { days: 22, amount: 2000 },
-  { days: 23, amount: 3000 },
-  { days: 24, amount: 4000 },
   { days: 25, amount: 5000 },
 ])
-
-const users = [
-  { account: 'admin', name: '王總經理', role: 'Admin', lastLogin: '2025/02/06 09:30', status: '啟用' },
-  { account: 'hr_lin', name: '林專員', role: 'Maintainer', lastLogin: '2025/02/06 08:45', status: '啟用' },
-  { account: 'hr_chen', name: '陳主管', role: 'Maintainer', lastLogin: '2025/02/05 17:20', status: '啟用' },
-]
 
 const taxRates = [
   { range: '$0 ~ $84,500', rate: '0%' },
@@ -29,7 +21,7 @@ const taxRates = [
   <!-- Tabs -->
   <div class="flex gap-1 mb-6 border-b-2 border-gray-200">
     <button
-      v-for="tab in [{ id: 'attendance', label: '出勤津貼設定' }, { id: 'insurance', label: '勞健保設定' }, { id: 'tax', label: '所得稅設定' }, { id: 'users', label: '使用者管理' }]"
+      v-for="tab in [{ id: 'attendance', label: '出勤津貼設定' }, { id: 'insurance', label: '勞健保設定' }, { id: 'tax', label: '所得稅設定' }]"
       :key="tab.id"
       @click="activeTab = tab.id"
       class="px-6 py-3 text-sm font-medium transition-colors border-b-2 -mb-0.5"
@@ -222,47 +214,4 @@ const taxRates = [
     </div>
   </template>
 
-  <!-- 使用者管理 -->
-  <template v-if="activeTab === 'users'">
-    <div class="bg-white p-6 rounded-xl shadow-md">
-      <h3 class="text-lg font-semibold text-primary-700 mb-5">使用者帳號管理</h3>
-
-      <div class="mb-5">
-        <button @click="emit('toast', '功能展示中')" class="px-5 py-2.5 bg-success text-white rounded-lg hover:bg-green-700">
-          + 新增使用者
-        </button>
-      </div>
-
-      <table class="w-full">
-        <thead class="bg-gray-50">
-          <tr>
-            <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600">帳號</th>
-            <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600">姓名</th>
-            <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600">角色</th>
-            <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600">最後登入</th>
-            <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600">狀態</th>
-            <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600">操作</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="user in users" :key="user.account" class="border-t border-gray-100 hover:bg-gray-50">
-            <td class="px-4 py-3 text-sm font-mono">{{ user.account }}</td>
-            <td class="px-4 py-3 text-sm font-medium">{{ user.name }}</td>
-            <td class="px-4 py-3 text-sm">{{ user.role }}</td>
-            <td class="px-4 py-3 text-sm text-gray-500">{{ user.lastLogin }}</td>
-            <td class="px-4 py-3">
-              <span class="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
-                {{ user.status }}
-              </span>
-            </td>
-            <td class="px-4 py-3">
-              <button class="px-3 py-1.5 bg-primary-100 text-primary-600 rounded-md text-sm hover:bg-primary-200">
-                編輯
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </template>
 </template>

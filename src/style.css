@@ -5,3 +5,27 @@
 body {
   font-family: 'Microsoft JhengHei', 'Segoe UI', Tahoma, sans-serif;
 }
+
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+  .print-area,
+  .print-area * {
+    visibility: visible !important;
+  }
+  .print-area {
+    position: fixed !important;
+    inset: 0 !important;
+    background: white !important;
+    overflow: visible !important;
+    max-height: none !important;
+    padding: 8mm !important;
+    font-size: 11pt !important;
+    box-sizing: border-box !important;
+    z-index: 99999 !important;
+  }
+  * {
+    box-shadow: none !important;
+  }
+}
