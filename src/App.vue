@@ -6,6 +6,7 @@ import Personnel from './views/Personnel.vue'
 import Payroll from './views/Payroll.vue'
 import Reports from './views/Reports.vue'
 import Settings from './views/Settings.vue'
+import Vehicles from './views/Vehicles.vue'
 import Sidebar from './components/Sidebar.vue'
 import Topbar from './components/Topbar.vue'
 import Toast from './components/Toast.vue'
@@ -22,7 +23,8 @@ const pageTitles = {
   personnel: '人事異動管理',
   payroll: '薪資作業',
   reports: '名冊與報表',
-  settings: '系統設定'
+  settings: '系統設定',
+  vehicles: '車輛管理'
 }
 
 function handleLogin() {
@@ -72,6 +74,7 @@ function navigateTo(page) {
         <Payroll v-if="currentPage === 'payroll'" @toast="showToast" />
         <Reports v-if="currentPage === 'reports'" @toast="showToast" />
         <Settings v-if="currentPage === 'settings'" @toast="showToast" />
+        <Vehicles v-if="currentPage === 'vehicles'" @toast="showToast" />
       </div>
     </main>
   </div>

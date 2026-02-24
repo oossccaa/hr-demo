@@ -11,6 +11,7 @@ const navItems = [
   { id: 'personnel', icon: '👥', label: '人事管理' },
   { id: 'payroll', icon: '💰', label: '薪資作業' },
   { id: 'reports', icon: '📋', label: '名冊與報表' },
+  { id: 'vehicles', icon: '🚗', label: '車輛管理' },
   { id: 'settings', icon: '⚙️', label: '系統設定' },
   { id: 'logout', icon: '🚪', label: '登出' },
 ]
