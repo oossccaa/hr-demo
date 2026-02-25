@@ -776,7 +776,7 @@ function fmt(n) {
                 </tr>
               </tbody>
             </table>
-            <p class="text-right text-xs text-gray-400 mt-1">本薪資表由 T-ERP 人事薪資管理系統產出</p>
+            <p class="text-right text-xs text-gray-400 mt-1">本薪資表由通營人事管理系統產出</p>
           </div>
         </template>
 

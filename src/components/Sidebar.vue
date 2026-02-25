@@ -1,6 +1,5 @@
 <script setup>
 defineProps({
-  user: Object,
   currentPage: String
 })
 
@@ -21,19 +20,7 @@ const navItems = [
   <aside class="w-64 bg-gradient-to-br from-primary-600 to-primary-700 text-white fixed h-screen overflow-y-auto">
     <!-- Logo -->
     <div class="p-6 border-b border-white/10">
-      <h1 class="text-xl font-semibold mb-1">💼 T-ERP 人事薪資</h1>
-      <p class="text-xs opacity-80">輕量化管理系統</p>
-    </div>
-
-    <!-- User Info -->
-    <div class="p-5 bg-black/10 flex items-center gap-3">
-      <div class="w-11 h-11 bg-primary-100 rounded-full flex items-center justify-center text-primary-700 font-bold text-lg">
-        {{ user.avatar }}
-      </div>
-      <div>
-        <h3 class="text-sm font-medium">{{ user.name }}</h3>
-        <p class="text-xs opacity-70">{{ user.role }}</p>
-      </div>
+      <h1 class="text-xl font-semibold mb-1">💼 通營人事管理系統</h1>
     </div>
 
     <!-- Navigation -->

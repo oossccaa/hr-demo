@@ -16,7 +16,6 @@ const currentPage = ref('dashboard')
 const toastMessage = ref('')
 const toastVisible = ref(false)
 
-const user = { name: '王總經理', role: '系統管理員', avatar: '王' }
 
 const pageTitles = {
   dashboard: '儀表板總覽',
@@ -60,7 +59,6 @@ function navigateTo(page) {
   <!-- 主系統 -->
   <div v-else class="flex min-h-screen bg-primary-50">
     <Sidebar
-      :user="user"
       :currentPage="currentPage"
       @navigate="navigateTo"
     />

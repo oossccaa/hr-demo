@@ -13,16 +13,21 @@ const stats = [
 ]
 
 const payrollData = [
-  { id: 'A001', name: '王大明', dept: '研發部', base: 78000, days: 25, bonus: 5000, overtime: 5200, other: 10000, deduct: 12500 },
-  { id: 'A003', name: '張美玲', dept: '人事部', base: 52000, days: 23, bonus: 2000, overtime: 0, other: 3000, deduct: 7800 },
-  { id: 'A004', name: '陳志豪', dept: '研發部', base: 62000, days: 22, bonus: 2000, overtime: 8500, other: 10000, deduct: 10200 },
-  { id: 'A005', name: '林佳穎', dept: '財務部', base: 48000, days: 20, bonus: 0, overtime: 2000, other: 0, deduct: 6500 },
-  { id: 'A006', name: '張大明', dept: '研發部', base: 55000, days: 22, bonus: 2000, overtime: 0, other: 0, deduct: 7200 },
+  // 內勤
+  { id: 'A001', name: '王大明', dept: '管理部', base: 78000, days: 25, bonus: 15000, overtime: 5200, other: 10000, deduct: 12500 },
+  { id: 'A002', name: '張美玲', dept: '人事部', base: 52000, days: 23, bonus: 5000, overtime: 0, other: 3000, deduct: 7800 },
+  { id: 'A003', name: '林佳穎', dept: '財務部', base: 48000, days: 20, bonus: 0, overtime: 2000, other: 0, deduct: 6500 },
+  // 外勤（base 為班別工資合計）
+  { id: 'B001', name: '陳志豪', dept: '工程部', base: 55000, days: 22, bonus: 4000, overtime: 0, other: 4400, deduct: 9200 },
+  { id: 'B002', name: '劉建宏', dept: '工程部', base: 48400, days: 22, bonus: 4000, overtime: 0, other: 4400, deduct: 8500 },
+  { id: 'B003', name: '黃文傑', dept: '工程部', base: 44000, days: 22, bonus: 4000, overtime: 0, other: 4400, deduct: 7800 },
 ]
 
 const attendanceRules = [
-  { days: 22, amount: 2000 },
-  { days: 25, amount: 5000 },
+  { days: 22, amount: 4000 },
+  { days: 23, amount: 5000 },
+  { days: 24, amount: 7000 },
+  { days: 25, amount: 15000 },
 ]
 
 const history = [
@@ -32,8 +37,10 @@ const history = [
 ]
 
 function getAttendanceBonus(days) {
-  if (days >= 25) return 5000
-  if (days >= 22) return 2000
+  if (days >= 25) return 15000
+  if (days >= 24) return 7000
+  if (days >= 23) return 5000
+  if (days >= 22) return 4000
   return 0
 }
 
@@ -47,11 +54,14 @@ function formatMoney(num) {
 
 // ===================== 新增薪資單 =====================
 const employeeList = [
-  { id: 'A001', name: '王大明', dept: '研發部', deptType: '內勤', baseSalary: 78000, mealAllowance: 1800, transportAllowance: 2000, positionAllowance: 5000, laborInsuranceFee: 1134, healthInsuranceFee: 826, groupInsuranceFee: 120 },
-  { id: 'A003', name: '張美玲', dept: '人事部', deptType: '內勤', baseSalary: 52000, mealAllowance: 1800, transportAllowance: 1500, positionAllowance: 2000, laborInsuranceFee: 756, healthInsuranceFee: 551, groupInsuranceFee: 120 },
-  { id: 'A004', name: '陳志豪', dept: '研發部', deptType: '內勤', baseSalary: 62000, mealAllowance: 1800, transportAllowance: 1500, positionAllowance: 3000, laborInsuranceFee: 918, healthInsuranceFee: 688, groupInsuranceFee: 120 },
-  { id: 'A005', name: '林佳穎', dept: '財務部', deptType: '內勤', baseSalary: 48000, mealAllowance: 1800, transportAllowance: 1200, positionAllowance: 0, laborInsuranceFee: 702, healthInsuranceFee: 520, groupInsuranceFee: 120 },
-  { id: 'A006', name: '張大明', dept: '研發部', deptType: '外勤', baseSalary: 55000, mealAllowance: 1800, transportAllowance: 1500, positionAllowance: 0, laborInsuranceFee: 810, healthInsuranceFee: 597, groupInsuranceFee: 120 },
+  // 內勤 3 筆
+  { id: 'A001', name: '王大明', dept: '管理部', deptType: '內勤', baseSalary: 78000, mealAllowance: 1800, transportAllowance: 2000, positionAllowance: 5000, laborInsuranceFee: 1134, healthInsuranceFee: 826, groupInsuranceFee: 120 },
+  { id: 'A002', name: '張美玲', dept: '人事部', deptType: '內勤', baseSalary: 52000, mealAllowance: 1800, transportAllowance: 1500, positionAllowance: 2000, laborInsuranceFee: 756, healthInsuranceFee: 551, groupInsuranceFee: 120 },
+  { id: 'A003', name: '林佳穎', dept: '財務部', deptType: '內勤', baseSalary: 48000, mealAllowance: 1800, transportAllowance: 1200, positionAllowance: 0, laborInsuranceFee: 702, healthInsuranceFee: 520, groupInsuranceFee: 120 },
+  // 外勤 3 筆
+  { id: 'B001', name: '陳志豪', dept: '工程部', deptType: '外勤', baseSalary: 0, dailyRate: 2500, mealAllowance: 0, transportAllowance: 0, positionAllowance: 0, laborInsuranceFee: 918, healthInsuranceFee: 688, groupInsuranceFee: 120 },
+  { id: 'B002', name: '劉建宏', dept: '工程部', deptType: '外勤', baseSalary: 0, dailyRate: 2200, mealAllowance: 0, transportAllowance: 0, positionAllowance: 0, laborInsuranceFee: 810, healthInsuranceFee: 597, groupInsuranceFee: 120 },
+  { id: 'B003', name: '黃文傑', dept: '工程部', deptType: '外勤', baseSalary: 0, dailyRate: 2000, mealAllowance: 0, transportAllowance: 0, positionAllowance: 0, laborInsuranceFee: 756, healthInsuranceFee: 551, groupInsuranceFee: 120 },
 ]
 
 const newPayroll_selectedEmpId = ref('')
@@ -82,18 +92,19 @@ const showNewPayrollModal = ref(false)
 
 const additions = reactive({
   baseSalary: 0,
-  dayShiftDays: 0, dayShiftRate: 0,
-  nightShiftDays: 0, nightShiftRate: 0,
-  driverDays: 0, driverRate: 0,
-  foremanDays: 0, foremanRate: 0,
-  liveWireCount: 0, liveWireRate: 0,
-  efficiencyBonus: 0, responsibilityBonus: 0, serviceBonus: 0, cooperationBonus: 0,
-  overtimeHours: 0, overtimeRate: 0,
-  weekdayOvertime: 0, holidayOvertime: 0,
-  positionAllowance: 0, mealAllowance: 0, transportAllowance: 0,
-  safetyBonus: 0, licenseBonus: 0, qualityBonus: 0, companyBonus: 0, nightSnack: 0,
-  fullAttendanceDays: 0, fullAttendanceBonus: 0,
-  loanAdvance: 0, toolAdvance: 0,
+  // 外勤班別
+  dailyRate: 0,
+  weekdayDayShifts: 0, nightShifts: 0, saturdayDayShifts: 0, sundayDayShifts: 0,
+  // 外勤津貼（固定費率）
+  liveWireDays: 0, foremanDays: 0, driverDays: 0,
+  // 內勤加班費
+  overtimeAmount: 0,
+  // 津貼
+  positionAllowance: 0, transportAllowance: 0,
+  // 獎金
+  safetyBonus: 0, constructionBonus: 0, qualityBonus: 0, companyBonus: 0, nightSnack: 0,
+  // 預付
+  toolAdvance: 0, loanAdvance: 0,
 })
 
 const deductions = reactive({
@@ -103,36 +114,85 @@ const deductions = reactive({
   waterElecFee: 0, familyFee: 0, pettyCash: 0, leaveDeduct: 0, agencyFee: 0,
 })
 
+// 自訂加項/扣項
+const customAdditions = reactive([])
+const customDeductions = reactive([])
+
+function addCustomAddition() { customAdditions.push({ title: '', amount: 0 }) }
+function removeCustomAddition(i) { customAdditions.splice(i, 1) }
+function addCustomDeduction() { customDeductions.push({ title: '', amount: 0 }) }
+function removeCustomDeduction(i) { customDeductions.splice(i, 1) }
+
+const customAdditionTotal = computed(() => customAdditions.reduce((sum, item) => sum + (Number(item.amount) || 0), 0))
+const customDeductionTotal = computed(() => customDeductions.reduce((sum, item) => sum + (Number(item.amount) || 0), 0))
+
+function n(v) { return Number(v) || 0 }
+
+// 外勤各班別小計
+const weekdayDaySubtotal = computed(() => n(additions.dailyRate) * n(additions.weekdayDayShifts))
+const nightSubtotal = computed(() => n(additions.dailyRate) * n(additions.nightShifts) * 1.5)
+const saturdaySubtotal = computed(() => n(additions.dailyRate) * n(additions.saturdayDayShifts) * 1.4)
+const sundaySubtotal = computed(() => n(additions.dailyRate) * n(additions.sundayDayShifts) * 1.5)
+const shiftPayTotal = computed(() => weekdayDaySubtotal.value + nightSubtotal.value + saturdaySubtotal.value + sundaySubtotal.value)
+
+// 伙食津貼：總班數自動計算（日班+夜班+六+日，一天上日夜兩班算2班）
+const totalShifts = computed(() => n(additions.weekdayDayShifts) + n(additions.nightShifts) + n(additions.saturdayDayShifts) + n(additions.sundayDayShifts))
+
+// 外勤津貼小計
+const fieldAllowanceTotal = computed(() =>
+  n(additions.liveWireDays) * 100 + n(additions.foremanDays) * 300
+  + n(additions.driverDays) * 200 + totalShifts.value * 200
+)
+
+// 全勤獎金：根據總班數自動計算
+const attendanceBonus = computed(() => {
+  const days = totalShifts.value
+  if (days >= 25) return 15000
+  if (days >= 24) return 7000
+  if (days >= 23) return 5000
+  if (days >= 22) return 4000
+  return 0
+})
+
 const additionSubtotal = computed(() => {
-  return additions.baseSalary
-    + additions.dayShiftDays * additions.dayShiftRate
-    + additions.nightShiftDays * additions.nightShiftRate
-    + additions.driverDays * additions.driverRate
-    + additions.foremanDays * additions.foremanRate
-    + additions.liveWireCount * additions.liveWireRate
-    + additions.efficiencyBonus + additions.responsibilityBonus
-    + additions.serviceBonus + additions.cooperationBonus
-    + additions.overtimeHours * additions.overtimeRate
-    + additions.weekdayOvertime + additions.holidayOvertime
-    + additions.positionAllowance + additions.mealAllowance + additions.transportAllowance
-    + additions.safetyBonus + additions.licenseBonus + additions.qualityBonus
-    + additions.companyBonus + additions.nightSnack
-    + (additions.fullAttendanceDays >= 22 ? additions.fullAttendanceBonus : 0)
-    + additions.loanAdvance + additions.toolAdvance
+  return n(additions.baseSalary) + shiftPayTotal.value + fieldAllowanceTotal.value
+    + n(additions.overtimeAmount)
+    + n(additions.positionAllowance) + n(additions.transportAllowance)
+    + n(additions.safetyBonus) + n(additions.constructionBonus) + n(additions.qualityBonus)
+    + n(additions.companyBonus) + n(additions.nightSnack)
+    + attendanceBonus.value
+    + n(additions.toolAdvance) + n(additions.loanAdvance)
+    + customAdditionTotal.value
 })
 
 const deductionSubtotal = computed(() =>
   Object.values(deductions).reduce((sum, v) => sum + (Number(v) || 0), 0)
+  + customDeductionTotal.value
 )
 
 const netPay = computed(() => additionSubtotal.value - deductionSubtotal.value)
 
+const isFieldWorker = computed(() => newPayroll_emp.value?.deptType === '外勤')
+
 watch(newPayroll_emp, (emp) => {
   if (!emp) return
-  additions.baseSalary = emp.baseSalary
-  additions.mealAllowance = emp.mealAllowance
+  const isField = emp.deptType === '外勤'
+  // 外勤無月薪，內勤無日薪
+  additions.baseSalary = isField ? 0 : emp.baseSalary
+  additions.dailyRate = emp.dailyRate || 0
   additions.transportAllowance = emp.transportAllowance
   additions.positionAllowance = emp.positionAllowance
+  // 切換員工時重置欄位
+  additions.weekdayDayShifts = 0
+  additions.nightShifts = 0
+  additions.saturdayDayShifts = 0
+  additions.sundayDayShifts = 0
+  additions.liveWireDays = 0
+  additions.foremanDays = 0
+  additions.driverDays = 0
+  additions.overtimeAmount = 0
+  customAdditions.splice(0)
+  customDeductions.splice(0)
   deductions.laborInsuranceFee = emp.laborInsuranceFee
   deductions.healthInsuranceFee = emp.healthInsuranceFee
   deductions.groupInsuranceFee = emp.groupInsuranceFee
@@ -223,18 +283,20 @@ const selectedHistory = ref(null)
 
 const historyDetails = {
   '2025/01': [
-    { id: 'A001', name: '王大明', dept: '研發部', base: 78000, allowance: 8800, bonus: 5000, overtime: 5200, deduct: 12500, net: 84500 },
-    { id: 'A003', name: '張美玲', dept: '人事部', base: 52000, allowance: 5300, bonus: 3000, overtime: 0, deduct: 7800, net: 52500 },
-    { id: 'A004', name: '陳志豪', dept: '研發部', base: 62000, allowance: 6300, bonus: 2000, overtime: 8500, deduct: 10200, net: 68600 },
-    { id: 'A005', name: '林佳穎', dept: '財務部', base: 48000, allowance: 3000, bonus: 0, overtime: 2000, deduct: 6500, net: 46500 },
-    { id: 'A006', name: '張大明', dept: '研發部', base: 55000, allowance: 3300, bonus: 2000, overtime: 0, deduct: 7200, net: 53100 },
+    { id: 'A001', name: '王大明', dept: '管理部', base: 78000, allowance: 8800, bonus: 5000, overtime: 5200, deduct: 12500, net: 84500 },
+    { id: 'A002', name: '張美玲', dept: '人事部', base: 52000, allowance: 5300, bonus: 3000, overtime: 0, deduct: 7800, net: 52500 },
+    { id: 'A003', name: '林佳穎', dept: '財務部', base: 48000, allowance: 3000, bonus: 0, overtime: 2000, deduct: 6500, net: 46500 },
+    { id: 'B001', name: '陳志豪', dept: '工程部', base: 55000, allowance: 4400, bonus: 4000, overtime: 0, deduct: 9200, net: 54200 },
+    { id: 'B002', name: '劉建宏', dept: '工程部', base: 48400, allowance: 4400, bonus: 4000, overtime: 0, deduct: 8500, net: 48300 },
+    { id: 'B003', name: '黃文傑', dept: '工程部', base: 44000, allowance: 4400, bonus: 4000, overtime: 0, deduct: 7800, net: 44600 },
   ],
   '2024/12': [
-    { id: 'A001', name: '王大明', dept: '研發部', base: 78000, allowance: 8800, bonus: 12000, overtime: 8500, deduct: 12500, net: 94800 },
-    { id: 'A003', name: '張美玲', dept: '人事部', base: 52000, allowance: 5300, bonus: 8000, overtime: 0, deduct: 7800, net: 57500 },
-    { id: 'A004', name: '陳志豪', dept: '研發部', base: 62000, allowance: 6300, bonus: 8000, overtime: 12000, deduct: 10200, net: 78100 },
-    { id: 'A005', name: '林佳穎', dept: '財務部', base: 48000, allowance: 3000, bonus: 5000, overtime: 0, deduct: 6500, net: 49500 },
-    { id: 'A006', name: '張大明', dept: '研發部', base: 55000, allowance: 3300, bonus: 5000, overtime: 0, deduct: 7200, net: 56100 },
+    { id: 'A001', name: '王大明', dept: '管理部', base: 78000, allowance: 8800, bonus: 12000, overtime: 8500, deduct: 12500, net: 94800 },
+    { id: 'A002', name: '張美玲', dept: '人事部', base: 52000, allowance: 5300, bonus: 8000, overtime: 0, deduct: 7800, net: 57500 },
+    { id: 'A003', name: '林佳穎', dept: '財務部', base: 48000, allowance: 3000, bonus: 5000, overtime: 0, deduct: 6500, net: 49500 },
+    { id: 'B001', name: '陳志豪', dept: '工程部', base: 55000, allowance: 4400, bonus: 4000, overtime: 0, deduct: 9200, net: 54200 },
+    { id: 'B002', name: '劉建宏', dept: '工程部', base: 48400, allowance: 4400, bonus: 4000, overtime: 0, deduct: 8500, net: 48300 },
+    { id: 'B003', name: '黃文傑', dept: '工程部', base: 44000, allowance: 4400, bonus: 4000, overtime: 0, deduct: 7800, net: 44600 },
   ],
 }
 
@@ -250,8 +312,8 @@ function openHistoryModal(row) {
     <button
       v-for="tab in [
         { id: 'calc', label: '薪資計算' },
-        { id: 'attendance', label: '出勤津貼' },
-        { id: 'var', label: '變動津貼' },
+        // { id: 'attendance', label: '出勤津貼' },
+        // { id: 'var', label: '變動津貼' },
         { id: 'history', label: '發放紀錄' },
         { id: 'attendanceMgmt', label: '考勤管理' },
       ]"
@@ -332,7 +394,7 @@ function openHistoryModal(row) {
       </div>
       <div class="mt-4 p-4 bg-gray-50 rounded-lg text-sm text-gray-600">
         <strong>出勤津貼規則：</strong>
-        22天 → +$2,000 ｜ 25天以上 → +$5,000
+        22天 → +$4,000 ｜ 23天 → +$5,000 ｜ 24天 → +$7,000 ｜ 25天 → +$15,000
       </div>
       <div class="mt-5 flex justify-end gap-3">
         <button @click="emit('toast', '已匯出薪資明細')" class="px-5 py-2.5 bg-primary-100 text-primary-600 rounded-lg hover:bg-primary-200">匯出 Excel</button>
@@ -497,59 +559,127 @@ function openHistoryModal(row) {
                 <span class="text-sm font-semibold text-primary-700">工資項目</span>
               </div>
               <div class="p-4 space-y-3">
-                <!-- 底薪 -->
+                <!-- 底薪（內勤）-->
                 <div class="flex items-center gap-3">
                   <label class="text-xs font-medium text-gray-500 w-16 shrink-0">底薪</label>
                   <input v-model.number="additions.baseSalary" type="number" min="0"
-                    class="px-2 py-1.5 border border-gray-200 rounded w-32 text-sm focus:outline-none focus:border-primary-400" />
-                  <span class="text-xs text-gray-400">自動帶入</span>
+                    :disabled="isFieldWorker"
+                    class="px-2 py-1.5 border border-gray-200 rounded w-32 text-sm focus:outline-none focus:border-primary-400 disabled:bg-gray-100 disabled:text-gray-400" />
+                  <span class="text-xs text-gray-400">{{ isFieldWorker ? '外勤不適用' : '自動帶入' }}</span>
                 </div>
-                <!-- 外勤工資 列1 -->
-                <div class="grid grid-cols-3 gap-3">
-                  <div class="flex items-center gap-1.5 border border-gray-200 rounded-lg px-2 py-1.5 min-w-0">
-                    <span class="text-xs text-gray-600 font-medium w-8 shrink-0">白天</span>
-                    <input v-model.number="additions.dayShiftDays" type="number" min="0" placeholder="天"
-                      class="px-1 py-1 border border-gray-200 rounded w-10 text-xs focus:outline-none focus:border-primary-400 text-center min-w-0" />
-                    <span class="text-gray-400 text-xs shrink-0">×</span>
-                    <input v-model.number="additions.dayShiftRate" type="number" min="0" placeholder="工資"
-                      class="px-1 py-1 border border-gray-200 rounded w-16 text-xs focus:outline-none focus:border-primary-400 min-w-0" />
-                  </div>
-                  <div class="flex items-center gap-1.5 border border-gray-200 rounded-lg px-2 py-1.5 min-w-0">
-                    <span class="text-xs text-gray-600 font-medium w-8 shrink-0">夜間</span>
-                    <input v-model.number="additions.nightShiftDays" type="number" min="0" placeholder="天"
-                      class="px-1 py-1 border border-gray-200 rounded w-10 text-xs focus:outline-none focus:border-primary-400 text-center min-w-0" />
-                    <span class="text-gray-400 text-xs shrink-0">×</span>
-                    <input v-model.number="additions.nightShiftRate" type="number" min="0" placeholder="工資"
-                      class="px-1 py-1 border border-gray-200 rounded w-16 text-xs focus:outline-none focus:border-primary-400 min-w-0" />
-                  </div>
-                  <div class="flex items-center gap-1.5 border border-gray-200 rounded-lg px-2 py-1.5 min-w-0">
-                    <span class="text-xs text-gray-600 font-medium w-8 shrink-0">司機</span>
-                    <input v-model.number="additions.driverDays" type="number" min="0" placeholder="天"
-                      class="px-1 py-1 border border-gray-200 rounded w-10 text-xs focus:outline-none focus:border-primary-400 text-center min-w-0" />
-                    <span class="text-gray-400 text-xs shrink-0">×</span>
-                    <input v-model.number="additions.driverRate" type="number" min="0" placeholder="費率"
-                      class="px-1 py-1 border border-gray-200 rounded w-16 text-xs focus:outline-none focus:border-primary-400 min-w-0" />
-                  </div>
+                <!-- 日薪（外勤）-->
+                <div class="flex items-center gap-3">
+                  <label class="text-xs font-medium text-gray-500 w-16 shrink-0">日薪</label>
+                  <input v-model.number="additions.dailyRate" type="number" min="0"
+                    :disabled="!isFieldWorker"
+                    class="px-2 py-1.5 border border-gray-200 rounded w-32 text-sm focus:outline-none focus:border-primary-400 disabled:bg-gray-100 disabled:text-gray-400" />
+                  <span class="text-xs text-gray-400">{{ isFieldWorker ? '每班基本工資' : '內勤不適用' }}</span>
                 </div>
-                <!-- 外勤工資 列2 -->
-                <div class="grid grid-cols-3 gap-3">
-                  <div class="flex items-center gap-1.5 border border-gray-200 rounded-lg px-2 py-1.5 min-w-0">
-                    <span class="text-xs text-gray-600 font-medium w-8 shrink-0">領班</span>
-                    <input v-model.number="additions.foremanDays" type="number" min="0" placeholder="天"
-                      class="px-1 py-1 border border-gray-200 rounded w-10 text-xs focus:outline-none focus:border-primary-400 text-center min-w-0" />
-                    <span class="text-gray-400 text-xs shrink-0">×</span>
-                    <input v-model.number="additions.foremanRate" type="number" min="0" placeholder="費率"
-                      class="px-1 py-1 border border-gray-200 rounded w-16 text-xs focus:outline-none focus:border-primary-400 min-w-0" />
+                <!-- 外勤班別 / 內勤加班 -->
+                <template v-if="isFieldWorker">
+                  <div class="grid grid-cols-4 gap-3">
+                    <div class="flex flex-col gap-1 border border-gray-200 rounded-lg px-3 py-2">
+                      <div class="flex items-center justify-between">
+                        <span class="text-xs text-gray-600 font-medium">平日日班</span>
+                        <span class="text-xs text-gray-400">×1.0</span>
+                      </div>
+                      <input v-model.number="additions.weekdayDayShifts" type="number" min="0" placeholder="天數"
+                        class="px-2 py-1 border border-gray-200 rounded text-sm focus:outline-none focus:border-primary-400 text-center" />
+                      <div class="text-xs text-right text-green-600 font-medium">{{ formatMoney(weekdayDaySubtotal) }}</div>
+                    </div>
+                    <div class="flex flex-col gap-1 border border-amber-200 rounded-lg px-3 py-2 bg-amber-50/50">
+                      <div class="flex items-center justify-between">
+                        <span class="text-xs text-amber-700 font-medium">夜班</span>
+                        <span class="text-xs text-amber-500 font-semibold">×1.5</span>
+                      </div>
+                      <input v-model.number="additions.nightShifts" type="number" min="0" placeholder="天數"
+                        class="px-2 py-1 border border-gray-200 rounded text-sm focus:outline-none focus:border-primary-400 text-center" />
+                      <div class="text-xs text-right text-amber-600 font-medium">{{ formatMoney(nightSubtotal) }}</div>
+                    </div>
+                    <div class="flex flex-col gap-1 border border-blue-200 rounded-lg px-3 py-2 bg-blue-50/50">
+                      <div class="flex items-center justify-between">
+                        <span class="text-xs text-blue-700 font-medium">週六日班</span>
+                        <span class="text-xs text-blue-500 font-semibold">×1.4</span>
+                      </div>
+                      <input v-model.number="additions.saturdayDayShifts" type="number" min="0" placeholder="天數"
+                        class="px-2 py-1 border border-gray-200 rounded text-sm focus:outline-none focus:border-primary-400 text-center" />
+                      <div class="text-xs text-right text-blue-600 font-medium">{{ formatMoney(saturdaySubtotal) }}</div>
+                    </div>
+                    <div class="flex flex-col gap-1 border border-purple-200 rounded-lg px-3 py-2 bg-purple-50/50">
+                      <div class="flex items-center justify-between">
+                        <span class="text-xs text-purple-700 font-medium">週日日班</span>
+                        <span class="text-xs text-purple-500 font-semibold">×1.5</span>
+                      </div>
+                      <input v-model.number="additions.sundayDayShifts" type="number" min="0" placeholder="天數"
+                        class="px-2 py-1 border border-gray-200 rounded text-sm focus:outline-none focus:border-primary-400 text-center" />
+                      <div class="text-xs text-right text-purple-600 font-medium">{{ formatMoney(sundaySubtotal) }}</div>
+                    </div>
                   </div>
-                  <div class="flex items-center gap-1.5 border border-gray-200 rounded-lg px-2 py-1.5 min-w-0">
-                    <span class="text-xs text-gray-600 font-medium w-8 shrink-0">活電</span>
-                    <input v-model.number="additions.liveWireCount" type="number" min="0" placeholder="條"
-                      class="px-1 py-1 border border-gray-200 rounded w-10 text-xs focus:outline-none focus:border-primary-400 text-center min-w-0" />
-                    <span class="text-gray-400 text-xs shrink-0">×</span>
-                    <input v-model.number="additions.liveWireRate" type="number" min="0" placeholder="費率"
-                      class="px-1 py-1 border border-gray-200 rounded w-16 text-xs focus:outline-none focus:border-primary-400 min-w-0" />
+                  <!-- 外勤工資小計 -->
+                  <div class="flex justify-end items-center gap-2 px-2">
+                    <span class="text-xs text-gray-500">外勤工資小計</span>
+                    <span class="text-sm font-bold text-green-600">{{ formatMoney(shiftPayTotal) }}</span>
                   </div>
-                  <div></div>
+                </template>
+                <!-- 內勤加班費 -->
+                <template v-else>
+                  <div class="grid grid-cols-4 gap-3">
+                    <div class="flex flex-col gap-1 border border-blue-200 rounded-lg px-3 py-2 bg-blue-50/50 col-span-2">
+                      <div class="flex items-center justify-between">
+                        <span class="text-xs text-blue-700 font-medium">加班費</span>
+                        <span class="text-xs text-blue-400">1.5倍費率</span>
+                      </div>
+                      <input v-model.number="additions.overtimeAmount" type="number" min="0" placeholder="金額"
+                        class="px-2 py-1.5 border border-gray-200 rounded text-sm focus:outline-none focus:border-primary-400" />
+                    </div>
+                  </div>
+                  <div class="mt-2 text-right">
+                    <span class="text-xs text-gray-500">加班費小計</span>
+                    <span class="text-sm font-bold text-green-600 ml-2">{{ formatMoney(n(additions.overtimeAmount)) }}</span>
+                  </div>
+                </template>
+              </div>
+            </div>
+
+            <!-- 外勤津貼（固定費率） -->
+            <div v-if="isFieldWorker" class="border border-gray-200 rounded-xl overflow-hidden">
+              <div class="px-4 py-1.5 bg-amber-50 border-b border-gray-200">
+                <span class="text-sm font-semibold text-amber-700">外勤津貼（固定費率）</span>
+              </div>
+              <div class="p-4 grid grid-cols-4 gap-3">
+                <div class="flex flex-col gap-1 border border-gray-200 rounded-lg px-3 py-2">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-600 font-medium">活電津貼</span>
+                    <span class="text-xs text-gray-400">$100/班</span>
+                  </div>
+                  <input v-model.number="additions.liveWireDays" type="number" min="0" placeholder="班數"
+                    class="px-2 py-1 border border-gray-200 rounded text-sm focus:outline-none focus:border-primary-400 text-center" />
+                </div>
+                <div class="flex flex-col gap-1 border border-gray-200 rounded-lg px-3 py-2">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-600 font-medium">領班津貼</span>
+                    <span class="text-xs text-gray-400">$300/班</span>
+                  </div>
+                  <input v-model.number="additions.foremanDays" type="number" min="0" placeholder="班數"
+                    class="px-2 py-1 border border-gray-200 rounded text-sm focus:outline-none focus:border-primary-400 text-center" />
+                </div>
+                <div class="flex flex-col gap-1 border border-gray-200 rounded-lg px-3 py-2">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs text-gray-600 font-medium">司機津貼</span>
+                    <span class="text-xs text-gray-400">$200/班</span>
+                  </div>
+                  <input v-model.number="additions.driverDays" type="number" min="0" placeholder="班數"
+                    class="px-2 py-1 border border-gray-200 rounded text-sm focus:outline-none focus:border-primary-400 text-center" />
+                </div>
+                <div class="flex flex-col gap-1 border border-green-200 rounded-lg px-3 py-2 bg-green-50/50">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs text-green-700 font-medium">伙食津貼</span>
+                    <span class="text-xs text-gray-400">$200/班</span>
+                  </div>
+                  <div class="px-2 py-1 bg-white border border-gray-200 rounded text-sm text-center font-medium text-green-700">
+                    {{ totalShifts }} 班
+                  </div>
+                  <div class="text-xs text-right text-green-600 font-medium">{{ formatMoney(totalShifts * 200) }}</div>
                 </div>
               </div>
             </div>
@@ -561,28 +691,12 @@ function openHistoryModal(row) {
               </div>
               <div class="p-4 grid grid-cols-5 gap-x-4 gap-y-3">
                 <div class="flex flex-col gap-1">
-                  <label class="text-xs text-gray-500">效率獎金</label>
-                  <input v-model.number="additions.efficiencyBonus" type="number" min="0" class="px-2 py-1.5 border border-gray-200 rounded text-sm focus:outline-none focus:border-primary-400 w-full" />
-                </div>
-                <div class="flex flex-col gap-1">
-                  <label class="text-xs text-gray-500">責任獎金</label>
-                  <input v-model.number="additions.responsibilityBonus" type="number" min="0" class="px-2 py-1.5 border border-gray-200 rounded text-sm focus:outline-none focus:border-primary-400 w-full" />
-                </div>
-                <div class="flex flex-col gap-1">
-                  <label class="text-xs text-gray-500">服務獎金</label>
-                  <input v-model.number="additions.serviceBonus" type="number" min="0" class="px-2 py-1.5 border border-gray-200 rounded text-sm focus:outline-none focus:border-primary-400 w-full" />
-                </div>
-                <div class="flex flex-col gap-1">
-                  <label class="text-xs text-gray-500">協力獎金</label>
-                  <input v-model.number="additions.cooperationBonus" type="number" min="0" class="px-2 py-1.5 border border-gray-200 rounded text-sm focus:outline-none focus:border-primary-400 w-full" />
-                </div>
-                <div class="flex flex-col gap-1">
                   <label class="text-xs text-gray-500">工安獎金</label>
                   <input v-model.number="additions.safetyBonus" type="number" min="0" class="px-2 py-1.5 border border-gray-200 rounded text-sm focus:outline-none focus:border-primary-400 w-full" />
                 </div>
                 <div class="flex flex-col gap-1">
-                  <label class="text-xs text-gray-500">證照獎金</label>
-                  <input v-model.number="additions.licenseBonus" type="number" min="0" class="px-2 py-1.5 border border-gray-200 rounded text-sm focus:outline-none focus:border-primary-400 w-full" />
+                  <label class="text-xs text-gray-500">建設獎金</label>
+                  <input v-model.number="additions.constructionBonus" type="number" min="0" class="px-2 py-1.5 border border-gray-200 rounded text-sm focus:outline-none focus:border-primary-400 w-full" />
                 </div>
                 <div class="flex flex-col gap-1">
                   <label class="text-xs text-gray-500">品質獎金</label>
@@ -599,34 +713,7 @@ function openHistoryModal(row) {
               </div>
             </div>
 
-            <!-- 加班 -->
-            <div class="border border-gray-200 rounded-xl overflow-hidden">
-              <div class="px-4 py-1.5 bg-blue-50 border-b border-gray-200">
-                <span class="text-sm font-semibold text-blue-700">加班</span>
-              </div>
-              <div class="p-4 grid grid-cols-3 gap-4">
-                <div class="flex items-center gap-2 min-w-0">
-                  <label class="text-xs text-gray-500 w-20 shrink-0">時間 × 費率</label>
-                  <input v-model.number="additions.overtimeHours" type="number" min="0" placeholder="時"
-                    class="px-2 py-1.5 border border-gray-200 rounded w-12 text-sm focus:outline-none focus:border-primary-400 text-center min-w-0" />
-                  <span class="text-gray-400 text-xs shrink-0">×</span>
-                  <input v-model.number="additions.overtimeRate" type="number" min="0" placeholder="費率"
-                    class="px-2 py-1.5 border border-gray-200 rounded w-20 text-sm focus:outline-none focus:border-primary-400 min-w-0" />
-                </div>
-                <div class="flex items-center gap-2 min-w-0">
-                  <label class="text-xs text-gray-500 w-16 shrink-0">平日加班</label>
-                  <input v-model.number="additions.weekdayOvertime" type="number" min="0"
-                    class="px-2 py-1.5 border border-gray-200 rounded w-24 text-sm focus:outline-none focus:border-primary-400 min-w-0" />
-                </div>
-                <div class="flex items-center gap-2 min-w-0">
-                  <label class="text-xs text-gray-500 w-16 shrink-0">假日加班</label>
-                  <input v-model.number="additions.holidayOvertime" type="number" min="0"
-                    class="px-2 py-1.5 border border-gray-200 rounded w-24 text-sm focus:outline-none focus:border-primary-400 min-w-0" />
-                </div>
-              </div>
-            </div>
-
-            <!-- 津貼 / 全勤 / 預付 -->
+            <!-- 津貼 · 全勤 · 預付 -->
             <div class="border border-gray-200 rounded-xl overflow-hidden">
               <div class="px-4 py-1.5 bg-purple-50 border-b border-gray-200">
                 <span class="text-sm font-semibold text-purple-700">津貼 · 全勤 · 預付</span>
@@ -638,31 +725,8 @@ function openHistoryModal(row) {
                     class="px-2 py-1.5 border border-gray-200 rounded w-20 text-sm focus:outline-none focus:border-primary-400 min-w-0" />
                 </div>
                 <div class="flex items-center gap-2 min-w-0">
-                  <label class="text-xs text-gray-500 w-16 shrink-0">伙食津貼</label>
-                  <input v-model.number="additions.mealAllowance" type="number" min="0"
-                    class="px-2 py-1.5 border border-gray-200 rounded w-20 text-sm focus:outline-none focus:border-primary-400 min-w-0" />
-                </div>
-                <div class="flex items-center gap-2 min-w-0">
                   <label class="text-xs text-gray-500 w-16 shrink-0">交通津貼</label>
                   <input v-model.number="additions.transportAllowance" type="number" min="0"
-                    class="px-2 py-1.5 border border-gray-200 rounded w-20 text-sm focus:outline-none focus:border-primary-400 min-w-0" />
-                </div>
-                <div></div>
-                <div class="flex items-center gap-2 min-w-0">
-                  <label class="text-xs text-gray-500 w-16 shrink-0">全勤天數</label>
-                  <input v-model.number="additions.fullAttendanceDays" type="number" min="0"
-                    class="px-2 py-1.5 border border-gray-200 rounded w-20 text-sm focus:outline-none focus:border-primary-400 min-w-0" />
-                </div>
-                <div class="flex items-center gap-2 min-w-0">
-                  <label class="text-xs text-gray-500 w-16 shrink-0">全勤獎金</label>
-                  <input v-model.number="additions.fullAttendanceBonus" type="number" min="0"
-                    :disabled="additions.fullAttendanceDays < 22"
-                    class="px-2 py-1.5 border border-gray-200 rounded w-20 text-sm focus:outline-none focus:border-primary-400 disabled:bg-gray-100 min-w-0" />
-                  <span v-if="additions.fullAttendanceDays >= 22" class="text-xs text-green-600 font-medium shrink-0">✓達標</span>
-                </div>
-                <div class="flex items-center gap-2 min-w-0">
-                  <label class="text-xs text-gray-500 w-16 shrink-0">借款預支</label>
-                  <input v-model.number="additions.loanAdvance" type="number" min="0"
                     class="px-2 py-1.5 border border-gray-200 rounded w-20 text-sm focus:outline-none focus:border-primary-400 min-w-0" />
                 </div>
                 <div class="flex items-center gap-2 min-w-0">
@@ -670,7 +734,38 @@ function openHistoryModal(row) {
                   <input v-model.number="additions.toolAdvance" type="number" min="0"
                     class="px-2 py-1.5 border border-gray-200 rounded w-20 text-sm focus:outline-none focus:border-primary-400 min-w-0" />
                 </div>
+                <div class="flex items-center gap-2 min-w-0">
+                  <label class="text-xs text-gray-500 w-16 shrink-0">借款預支</label>
+                  <input v-model.number="additions.loanAdvance" type="number" min="0"
+                    class="px-2 py-1.5 border border-gray-200 rounded w-20 text-sm focus:outline-none focus:border-primary-400 min-w-0" />
+                </div>
+                <!-- 全勤獎金（自動計算） -->
+                <div class="col-span-4 flex items-center gap-3 px-3 py-2 rounded-lg" :class="attendanceBonus > 0 ? 'bg-green-50 border border-green-200' : 'bg-gray-50 border border-gray-200'">
+                  <span class="text-xs font-medium text-gray-600">全勤獎金</span>
+                  <span class="text-xs text-gray-400">總班數 {{ totalShifts }} 天</span>
+                  <span v-if="attendanceBonus > 0" class="text-sm font-bold text-green-600">+{{ formatMoney(attendanceBonus) }}</span>
+                  <span v-else class="text-xs text-gray-400">未達 22 天</span>
+                  <span class="text-xs text-gray-400 ml-auto">22→$4,000 | 23→$5,000 | 24→$7,000 | 25→$15,000</span>
+                </div>
               </div>
+            </div>
+
+            <!-- 自訂加項 -->
+            <div class="border border-gray-200 rounded-xl overflow-hidden">
+              <div class="px-4 py-1.5 bg-teal-50 border-b border-gray-200 flex items-center justify-between">
+                <span class="text-sm font-semibold text-teal-700">其他加項</span>
+                <button @click="addCustomAddition" class="text-xs text-teal-600 hover:text-teal-800 font-medium">+ 新增</button>
+              </div>
+              <div v-if="customAdditions.length" class="p-3 space-y-2">
+                <div v-for="(item, i) in customAdditions" :key="i" class="flex items-center gap-2">
+                  <input v-model="item.title" type="text" placeholder="項目名稱"
+                    class="px-2 py-1.5 border border-gray-200 rounded text-sm focus:outline-none focus:border-primary-400 flex-1" />
+                  <input v-model.number="item.amount" type="number" min="0" placeholder="金額"
+                    class="px-2 py-1.5 border border-gray-200 rounded w-28 text-sm text-right focus:outline-none focus:border-primary-400" />
+                  <button @click="removeCustomAddition(i)" class="text-gray-400 hover:text-red-500 text-lg leading-none">&times;</button>
+                </div>
+              </div>
+              <div v-else class="p-3 text-xs text-gray-400 text-center">尚無自訂加項</div>
             </div>
 
             <!-- 加項小計 -->
@@ -697,6 +792,11 @@ function openHistoryModal(row) {
                 <div class="flex items-center justify-between gap-2">
                   <label class="text-xs text-gray-500">健保費 <span class="text-gray-300">自動</span></label>
                   <input v-model.number="deductions.healthInsuranceFee" type="number" min="0"
+                    class="px-2 py-1 border border-gray-200 rounded w-24 text-sm text-right focus:outline-none focus:border-primary-400" />
+                </div>
+                <div class="flex items-center justify-between gap-2">
+                  <label class="text-xs text-gray-500">健保眷屬費</label>
+                  <input v-model.number="deductions.familyFee" type="number" min="0"
                     class="px-2 py-1 border border-gray-200 rounded w-24 text-sm text-right focus:outline-none focus:border-primary-400" />
                 </div>
                 <div class="flex items-center justify-between gap-2">
@@ -746,11 +846,6 @@ function openHistoryModal(row) {
                       class="px-2 py-1 border border-gray-200 rounded w-24 text-sm text-right focus:outline-none focus:border-primary-400" />
                   </div>
                   <div class="flex items-center justify-between gap-2">
-                    <label class="text-xs text-gray-500">眷屬費</label>
-                    <input v-model.number="deductions.familyFee" type="number" min="0"
-                      class="px-2 py-1 border border-gray-200 rounded w-24 text-sm text-right focus:outline-none focus:border-primary-400" />
-                  </div>
-                  <div class="flex items-center justify-between gap-2">
                     <label class="text-xs text-gray-500">零用金</label>
                     <input v-model.number="deductions.pettyCash" type="number" min="0"
                       class="px-2 py-1 border border-gray-200 rounded w-24 text-sm text-right focus:outline-none focus:border-primary-400" />
@@ -764,6 +859,22 @@ function openHistoryModal(row) {
                     <label class="text-xs text-gray-500">仲介服務費</label>
                     <input v-model.number="deductions.agencyFee" type="number" min="0"
                       class="px-2 py-1 border border-gray-200 rounded w-24 text-sm text-right focus:outline-none focus:border-primary-400" />
+                  </div>
+                </div>
+              </div>
+              <!-- 自訂扣項 -->
+              <div class="border-t border-gray-200">
+                <div class="px-3 py-1.5 flex items-center justify-between bg-gray-50">
+                  <span class="text-xs font-medium text-gray-500">其他扣項</span>
+                  <button @click="addCustomDeduction" class="text-xs text-red-500 hover:text-red-700 font-medium">+ 新增</button>
+                </div>
+                <div v-if="customDeductions.length" class="p-3 space-y-1.5">
+                  <div v-for="(item, i) in customDeductions" :key="i" class="flex items-center gap-2">
+                    <input v-model="item.title" type="text" placeholder="項目名稱"
+                      class="px-2 py-1 border border-gray-200 rounded text-xs focus:outline-none focus:border-primary-400 flex-1" />
+                    <input v-model.number="item.amount" type="number" min="0" placeholder="金額"
+                      class="px-2 py-1 border border-gray-200 rounded w-24 text-sm text-right focus:outline-none focus:border-primary-400" />
+                    <button @click="removeCustomDeduction(i)" class="text-gray-400 hover:text-red-500 text-lg leading-none">&times;</button>
                   </div>
                 </div>
               </div>
@@ -1060,7 +1171,7 @@ function openHistoryModal(row) {
             </tr>
           </tbody>
         </table>
-        <p class="mt-8 text-xs text-gray-400 text-center">本表由 T-ERP 人事薪資管理系統產出</p>
+        <p class="mt-8 text-xs text-gray-400 text-center">本表由通營人事管理系統產出</p>
       </div>
     </div>
   </div>

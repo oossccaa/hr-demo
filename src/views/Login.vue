@@ -19,8 +19,7 @@ function handleSubmit() {
   <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-600 to-primary-700">
     <div class="bg-white p-12 rounded-2xl shadow-2xl w-full max-w-md">
       <div class="text-center mb-8">
-        <h1 class="text-3xl font-semibold text-primary-700 mb-2">💼 T-ERP 人事薪資</h1>
-        <p class="text-gray-500">輕量化管理系統</p>
+        <h1 class="text-3xl font-semibold text-primary-700 mb-2">💼 通營人事管理系統</h1>
       </div>
 
       <form @submit.prevent="handleSubmit" class="space-y-5">
@@ -55,7 +54,7 @@ function handleSubmit() {
         帳號：admin　密碼：1234
       </div>
 
-      <p class="text-center mt-6 text-gray-400 text-sm">© 2025 T-ERP 人事薪資管理系統</p>
+      <p class="text-center mt-6 text-gray-400 text-sm">© 2025 通營人事管理系統</p>
     </div>
   </div>
 </template>
